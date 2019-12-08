@@ -6,4 +6,4 @@ netty:
 
 spring:
   resources:
-    static-locations: classpath:xml/,file:xml/
+    static-locations: classpath:xml/,file:xml/,classpath:/static,classpath:/resources/
