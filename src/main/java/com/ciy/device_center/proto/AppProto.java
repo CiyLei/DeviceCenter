@@ -90,10 +90,30 @@ public final class AppProto {
 
     /**
      * <pre>
+     * 导向的ip
+     * </pre>
+     *
+     * <code>string address = 5;</code>
+     * @return The address.
+     */
+    java.lang.String getAddress();
+    /**
+     * <pre>
+     * 导向的ip
+     * </pre>
+     *
+     * <code>string address = 5;</code>
+     * @return The bytes for address.
+     */
+    com.google.protobuf.ByteString
+        getAddressBytes();
+
+    /**
+     * <pre>
      * 导向的端口号
      * </pre>
      *
-     * <code>int32 port = 5;</code>
+     * <code>int32 port = 6;</code>
      * @return The port.
      */
     int getPort();
@@ -114,6 +134,7 @@ public final class AppProto {
       deviceCode_ = "";
       deviceName_ = "";
       applicationName_ = "";
+      address_ = "";
     }
 
     @java.lang.Override
@@ -169,7 +190,13 @@ public final class AppProto {
               applicationName_ = s;
               break;
             }
-            case 40: {
+            case 42: {
+              java.lang.String s = input.readStringRequireUtf8();
+
+              address_ = s;
+              break;
+            }
+            case 48: {
 
               port_ = input.readInt32();
               break;
@@ -352,14 +379,58 @@ public final class AppProto {
       }
     }
 
-    public static final int PORT_FIELD_NUMBER = 5;
+    public static final int ADDRESS_FIELD_NUMBER = 5;
+    private volatile java.lang.Object address_;
+    /**
+     * <pre>
+     * 导向的ip
+     * </pre>
+     *
+     * <code>string address = 5;</code>
+     * @return The address.
+     */
+    public java.lang.String getAddress() {
+      java.lang.Object ref = address_;
+      if (ref instanceof java.lang.String) {
+        return (java.lang.String) ref;
+      } else {
+        com.google.protobuf.ByteString bs = 
+            (com.google.protobuf.ByteString) ref;
+        java.lang.String s = bs.toStringUtf8();
+        address_ = s;
+        return s;
+      }
+    }
+    /**
+     * <pre>
+     * 导向的ip
+     * </pre>
+     *
+     * <code>string address = 5;</code>
+     * @return The bytes for address.
+     */
+    public com.google.protobuf.ByteString
+        getAddressBytes() {
+      java.lang.Object ref = address_;
+      if (ref instanceof java.lang.String) {
+        com.google.protobuf.ByteString b = 
+            com.google.protobuf.ByteString.copyFromUtf8(
+                (java.lang.String) ref);
+        address_ = b;
+        return b;
+      } else {
+        return (com.google.protobuf.ByteString) ref;
+      }
+    }
+
+    public static final int PORT_FIELD_NUMBER = 6;
     private int port_;
     /**
      * <pre>
      * 导向的端口号
      * </pre>
      *
-     * <code>int32 port = 5;</code>
+     * <code>int32 port = 6;</code>
      * @return The port.
      */
     public int getPort() {
@@ -392,8 +463,11 @@ public final class AppProto {
       if (!getApplicationNameBytes().isEmpty()) {
         com.google.protobuf.GeneratedMessageV3.writeString(output, 4, applicationName_);
       }
+      if (!getAddressBytes().isEmpty()) {
+        com.google.protobuf.GeneratedMessageV3.writeString(output, 5, address_);
+      }
       if (port_ != 0) {
-        output.writeInt32(5, port_);
+        output.writeInt32(6, port_);
       }
       unknownFields.writeTo(output);
     }
@@ -417,9 +491,12 @@ public final class AppProto {
       if (!getApplicationNameBytes().isEmpty()) {
         size += com.google.protobuf.GeneratedMessageV3.computeStringSize(4, applicationName_);
       }
+      if (!getAddressBytes().isEmpty()) {
+        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(5, address_);
+      }
       if (port_ != 0) {
         size += com.google.protobuf.CodedOutputStream
-          .computeInt32Size(5, port_);
+          .computeInt32Size(6, port_);
       }
       size += unknownFields.getSerializedSize();
       memoizedSize = size;
@@ -444,6 +521,8 @@ public final class AppProto {
           != other.getDeviceType()) return false;
       if (!getApplicationName()
           .equals(other.getApplicationName())) return false;
+      if (!getAddress()
+          .equals(other.getAddress())) return false;
       if (getPort()
           != other.getPort()) return false;
       if (!unknownFields.equals(other.unknownFields)) return false;
@@ -465,6 +544,8 @@ public final class AppProto {
       hash = (53 * hash) + getDeviceType();
       hash = (37 * hash) + APPLICATION_NAME_FIELD_NUMBER;
       hash = (53 * hash) + getApplicationName().hashCode();
+      hash = (37 * hash) + ADDRESS_FIELD_NUMBER;
+      hash = (53 * hash) + getAddress().hashCode();
       hash = (37 * hash) + PORT_FIELD_NUMBER;
       hash = (53 * hash) + getPort();
       hash = (29 * hash) + unknownFields.hashCode();
@@ -608,6 +689,8 @@ public final class AppProto {
 
         applicationName_ = "";
 
+        address_ = "";
+
         port_ = 0;
 
         return this;
@@ -640,6 +723,7 @@ public final class AppProto {
         result.deviceName_ = deviceName_;
         result.deviceType_ = deviceType_;
         result.applicationName_ = applicationName_;
+        result.address_ = address_;
         result.port_ = port_;
         onBuilt();
         return result;
@@ -702,6 +786,10 @@ public final class AppProto {
         }
         if (!other.getApplicationName().isEmpty()) {
           applicationName_ = other.applicationName_;
+          onChanged();
+        }
+        if (!other.getAddress().isEmpty()) {
+          address_ = other.address_;
           onChanged();
         }
         if (other.getPort() != 0) {
@@ -1066,13 +1154,109 @@ public final class AppProto {
         return this;
       }
 
+      private java.lang.Object address_ = "";
+      /**
+       * <pre>
+       * 导向的ip
+       * </pre>
+       *
+       * <code>string address = 5;</code>
+       * @return The address.
+       */
+      public java.lang.String getAddress() {
+        java.lang.Object ref = address_;
+        if (!(ref instanceof java.lang.String)) {
+          com.google.protobuf.ByteString bs =
+              (com.google.protobuf.ByteString) ref;
+          java.lang.String s = bs.toStringUtf8();
+          address_ = s;
+          return s;
+        } else {
+          return (java.lang.String) ref;
+        }
+      }
+      /**
+       * <pre>
+       * 导向的ip
+       * </pre>
+       *
+       * <code>string address = 5;</code>
+       * @return The bytes for address.
+       */
+      public com.google.protobuf.ByteString
+          getAddressBytes() {
+        java.lang.Object ref = address_;
+        if (ref instanceof String) {
+          com.google.protobuf.ByteString b = 
+              com.google.protobuf.ByteString.copyFromUtf8(
+                  (java.lang.String) ref);
+          address_ = b;
+          return b;
+        } else {
+          return (com.google.protobuf.ByteString) ref;
+        }
+      }
+      /**
+       * <pre>
+       * 导向的ip
+       * </pre>
+       *
+       * <code>string address = 5;</code>
+       * @param value The address to set.
+       * @return This builder for chaining.
+       */
+      public Builder setAddress(
+          java.lang.String value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  
+        address_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       * 导向的ip
+       * </pre>
+       *
+       * <code>string address = 5;</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearAddress() {
+        
+        address_ = getDefaultInstance().getAddress();
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       * 导向的ip
+       * </pre>
+       *
+       * <code>string address = 5;</code>
+       * @param value The bytes for address to set.
+       * @return This builder for chaining.
+       */
+      public Builder setAddressBytes(
+          com.google.protobuf.ByteString value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  checkByteStringIsUtf8(value);
+        
+        address_ = value;
+        onChanged();
+        return this;
+      }
+
       private int port_ ;
       /**
        * <pre>
        * 导向的端口号
        * </pre>
        *
-       * <code>int32 port = 5;</code>
+       * <code>int32 port = 6;</code>
        * @return The port.
        */
       public int getPort() {
@@ -1083,7 +1267,7 @@ public final class AppProto {
        * 导向的端口号
        * </pre>
        *
-       * <code>int32 port = 5;</code>
+       * <code>int32 port = 6;</code>
        * @param value The port to set.
        * @return This builder for chaining.
        */
@@ -1098,7 +1282,7 @@ public final class AppProto {
        * 导向的端口号
        * </pre>
        *
-       * <code>int32 port = 5;</code>
+       * <code>int32 port = 6;</code>
        * @return This builder for chaining.
        */
       public Builder clearPort() {
@@ -1174,11 +1358,11 @@ public final class AppProto {
       descriptor;
   static {
     java.lang.String[] descriptorData = {
-      "\n\tapp.proto\"m\n\004Info\022\023\n\013device_code\030\001 \001(\t" +
+      "\n\tapp.proto\"~\n\004Info\022\023\n\013device_code\030\001 \001(\t" +
       "\022\023\n\013device_name\030\002 \001(\t\022\023\n\013device_type\030\003 \001" +
-      "(\005\022\030\n\020application_name\030\004 \001(\t\022\014\n\004port\030\005 \001" +
-      "(\005B\'\n\033com.ciy.device_center.protoB\010AppPr" +
-      "otob\006proto3"
+      "(\005\022\030\n\020application_name\030\004 \001(\t\022\017\n\007address\030" +
+      "\005 \001(\t\022\014\n\004port\030\006 \001(\005B\'\n\033com.ciy.device_ce" +
+      "nter.protoB\010AppProtob\006proto3"
     };
     descriptor = com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,
@@ -1189,7 +1373,7 @@ public final class AppProto {
     internal_static_Info_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_Info_descriptor,
-        new java.lang.String[] { "DeviceCode", "DeviceName", "DeviceType", "ApplicationName", "Port", });
+        new java.lang.String[] { "DeviceCode", "DeviceName", "DeviceType", "ApplicationName", "Address", "Port", });
   }
 
   // @@protoc_insertion_point(outer_class_scope)

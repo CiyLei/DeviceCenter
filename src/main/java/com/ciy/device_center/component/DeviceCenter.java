@@ -46,13 +46,13 @@ public class DeviceCenter implements IDeviceCenter {
         DeviceInfo device = findDevice(deviceAppModel.getDeviceCode());
         if (device == null) {
             DeviceInfo deviceInfo = new DeviceInfo(deviceAppModel.getDeviceCode(), deviceAppModel.getDeviceName(), deviceAppModel.getDeviceType(), getAlias(deviceAppModel.getDeviceCode()));
-            AppInfo appInfo = new AppInfo(deviceAppModel.getApplicationName(), deviceAppModel.getPort(), deviceAppModel.getCtx());
+            AppInfo appInfo = new AppInfo(deviceAppModel.getApplicationName(), deviceAppModel.getAddress(), deviceAppModel.getPort(), deviceAppModel.getCtx());
             deviceInfo.getAppInfoList().add(appInfo);
             deviceAppGroup.add(deviceInfo);
         } else {
             // 如果设备已存在的话
             Set<AppInfo> appInfoList = device.getAppInfoList();
-            AppInfo appInfo = new AppInfo(deviceAppModel.getApplicationName(), deviceAppModel.getPort(), deviceAppModel.getCtx());
+            AppInfo appInfo = new AppInfo(deviceAppModel.getApplicationName(), deviceAppModel.getAddress(), deviceAppModel.getPort(), deviceAppModel.getCtx());
             appInfoList.add(appInfo);
         }
     }

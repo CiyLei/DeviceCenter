@@ -8,6 +8,7 @@ public class DeviceAppModel {
     private String deviceName;
     private int deviceType;
     private String applicationName;
+    private String address;
     private int port;
     // 别名
     private String alias;
@@ -18,6 +19,7 @@ public class DeviceAppModel {
         this.deviceName = appInfo.getDeviceName();
         this.deviceType = appInfo.getDeviceType();
         this.applicationName = appInfo.getApplicationName();
+        this.address = appInfo.getAddress();
         this.port = appInfo.getPort();
         this.ctx = ctx;
     }
@@ -72,5 +74,13 @@ public class DeviceAppModel {
 
     public void setAlias(String alias) {
         this.alias = alias;
+    }
+
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
     }
 }

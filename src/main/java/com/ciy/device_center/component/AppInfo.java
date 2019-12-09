@@ -14,16 +14,11 @@ public class AppInfo {
     @JsonIgnore
     private ChannelHandlerContext ctx;
 
-    public AppInfo(String applicationName, int port, ChannelHandlerContext ctx) {
+    public AppInfo(String applicationName, String address, int port, ChannelHandlerContext ctx) {
         this.applicationName = applicationName;
+        this.address = address;
         this.port = port;
         this.ctx = ctx;
-        SocketAddress socketAddress = ctx.channel().remoteAddress();
-        if (socketAddress instanceof InetSocketAddress) {
-            this.address = ((InetSocketAddress) socketAddress).getAddress().getHostAddress();
-        } else {
-            this.address = "";
-        }
     }
 
     public String getApplicationName() {
