@@ -18,6 +18,7 @@ public class DCActionHandler extends ChannelInboundHandlerAdapter {
 
     public final static int SEND_DEVICE_APP_CMDID = 10006;
     public final static int SEND_SHOCK_CMDID = 10007;
+    public final static int CMDID_NOOPING = 6;
     public static AttributeKey<DeviceAppModel> DEVICE_MODEL_ATTRIBUTE_KEY = AttributeKey.valueOf("deviceModelAttributeKey");
 
     IDeviceCenter deviceCenter = DeviceCenter.getInstance();
@@ -35,6 +36,10 @@ public class DCActionHandler extends ChannelInboundHandlerAdapter {
                     deviceCenter.addAppInfo(deviceAppModel);
                     // 随便给个回复，不然会断
                     ctx.writeAndFlush(new DCProtoHeader(protoHeader.getCmdId(), protoHeader.getSeq(), new byte[] {1}));
+                    break;
+                case CMDID_NOOPING:
+                    // 心跳包
+                    ctx.writeAndFlush(ctx.alloc().buffer().writeBytes(protoHeader.encode()));
                     break;
             }
         }
