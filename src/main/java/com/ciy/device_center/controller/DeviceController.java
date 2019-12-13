@@ -2,12 +2,13 @@ package com.ciy.device_center.controller;
 
 import com.ciy.device_center.DCProtoHeader;
 import com.ciy.device_center.component.AppInfo;
-import com.ciy.device_center.component.DeviceCenter;
 import com.ciy.device_center.component.DeviceInfo;
+import com.ciy.device_center.component.IDeviceCenter;
 import com.ciy.device_center.handler.DCActionHandler;
 import com.ciy.device_center.model.BaseResult;
 import com.ciy.device_center.request.SetAliasRequest;
 import com.ciy.device_center.request.ShockRequest;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -19,15 +20,17 @@ import java.util.concurrent.atomic.AtomicBoolean;
 @RestController
 public class DeviceController extends BaseController {
 
+    @Autowired
+    IDeviceCenter deviceCenter;
 
     @GetMapping("/device")
     BaseResult<List<DeviceInfo>> getDeviceGroup() {
-        return success(DeviceCenter.getInstance().getDeviceGroup());
+        return success(deviceCenter.getDeviceGroup());
     }
 
     @GetMapping("/setAlias")
     BaseResult<Boolean> setAlias(@Validated SetAliasRequest setAliasRequest) {
-        if (DeviceCenter.getInstance().setAlias(setAliasRequest.getCode(), setAliasRequest.getAlias())) {
+        if (deviceCenter.setAlias(setAliasRequest.getCode(), setAliasRequest.getAlias())) {
             return success(true);
         }
         return fail(201, "找不到设备");
@@ -36,7 +39,7 @@ public class DeviceController extends BaseController {
     @GetMapping("/shock")
     BaseResult<Boolean> shock(@Validated ShockRequest shockRequest) {
         AtomicBoolean flag = new AtomicBoolean(false);
-        DeviceCenter.getInstance().getDeviceGroup().forEach(it -> {
+        deviceCenter.getDeviceGroup().forEach(it -> {
             if (it.getDeviceCode().equals(shockRequest.getCode())) {
                 AppInfo appInfo = null;
                 if (it.getAppInfoList().size() == 1) {

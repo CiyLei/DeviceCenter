@@ -1,19 +1,17 @@
 package com.ciy.device_center.handler;
 
 import com.ciy.device_center.DCProtoHeader;
-import com.ciy.device_center.component.DeviceCenter;
 import com.ciy.device_center.component.IDeviceCenter;
 import com.ciy.device_center.model.DeviceAppModel;
 import com.ciy.device_center.proto.AppProto;
+import com.ciy.device_center.utils.SpringUtil;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.ChannelInboundHandlerAdapter;
 import io.netty.util.AttributeKey;
-import org.springframework.stereotype.Component;
 
 /**
  * 处理命令
  */
-@Component
 public class DCActionHandler extends ChannelInboundHandlerAdapter {
 
     public final static int SEND_DEVICE_APP_CMDID = 10006;
@@ -21,7 +19,7 @@ public class DCActionHandler extends ChannelInboundHandlerAdapter {
     public final static int CMDID_NOOPING = 6;
     public static AttributeKey<DeviceAppModel> DEVICE_MODEL_ATTRIBUTE_KEY = AttributeKey.valueOf("deviceModelAttributeKey");
 
-    IDeviceCenter deviceCenter = DeviceCenter.getInstance();
+    IDeviceCenter deviceCenter = SpringUtil.getBean(IDeviceCenter.class);
 
     @Override
     public void channelRead(ChannelHandlerContext ctx, Object msg) throws Exception {

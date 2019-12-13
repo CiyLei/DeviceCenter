@@ -1,33 +1,24 @@
 package com.ciy.device_center.component;
 
 import com.ciy.device_center.model.DeviceAppModel;
-import org.springframework.context.annotation.Bean;
+import org.springframework.beans.factory.InitializingBean;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 import java.util.*;
 import java.util.concurrent.atomic.AtomicBoolean;
 
-public class DeviceCenter implements IDeviceCenter {
+@Component
+public class DeviceCenter implements IDeviceCenter, InitializingBean {
 
     private List<DeviceInfo> deviceAppGroup = new ArrayList<>();
     private Map<String, String> aliasGroup = new HashMap<>();
-    private IAlias alias = new AliasForXml();
 
-    private static DeviceCenter _instance = null;
+    @Autowired
+    private IAlias alias;
 
-    @Bean
-    public static IDeviceCenter getInstance() {
-        if (_instance == null) {
-            synchronized (DeviceCenter.class) {
-                if (_instance == null) {
-                    _instance = new DeviceCenter();
-                }
-            }
-        }
-        return _instance;
-    }
-
-    public DeviceCenter() {
-        super();
+    @Override
+    public void afterPropertiesSet() throws Exception {
         aliasGroup.putAll(alias.loadAlias());
     }
 

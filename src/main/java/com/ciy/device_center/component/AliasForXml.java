@@ -1,6 +1,7 @@
 package com.ciy.device_center.component;
 
 import org.springframework.boot.system.ApplicationHome;
+import org.springframework.stereotype.Component;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
@@ -19,6 +20,7 @@ import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
+@Component
 public class AliasForXml implements IAlias {
 
     public static String ELEMENT_ALIAS_LIST = "aliasList";
