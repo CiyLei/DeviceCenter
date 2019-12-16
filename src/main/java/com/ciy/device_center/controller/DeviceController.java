@@ -69,4 +69,10 @@ public class DeviceController extends BaseController {
         }
         return fail(201, "找不到设备");
     }
+
+    @GetMapping("clear")
+    BaseResult<Boolean> clear() {
+        deviceCenter.clear();
+        return success(true);
+    }
 }

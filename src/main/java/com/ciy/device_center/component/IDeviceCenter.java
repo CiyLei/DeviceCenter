@@ -30,4 +30,9 @@ public interface IDeviceCenter {
      * @param alias 别名
      */
     boolean setAlias(String deviceCode, String alias);
+
+    /**
+     * 清除所有连接
+     */
+    void clear();
 }

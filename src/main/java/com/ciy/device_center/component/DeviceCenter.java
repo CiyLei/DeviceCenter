@@ -128,4 +128,18 @@ public class DeviceCenter implements IDeviceCenter, InitializingBean {
         this.alias.saveAlias(aliasGroup);
         return flag.get();
     }
+
+    /**
+     * 清除所有连接
+     */
+    @Override
+    public void clear() {
+        // 将所有连接关闭
+        deviceAppGroup.forEach(d -> {
+            d.getAppInfoList().forEach(i -> {
+                i.getCtx().close();
+            });
+        });
+        deviceAppGroup.clear();
+    }
 }
