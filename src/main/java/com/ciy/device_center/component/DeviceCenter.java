@@ -32,7 +32,7 @@ public class DeviceCenter implements IDeviceCenter, InitializingBean {
      *
      * @param deviceAppModel
      */
-    public void addAppInfo(DeviceAppModel deviceAppModel) {
+    public synchronized void addAppInfo(DeviceAppModel deviceAppModel) {
         // 如果设备未存在的话
         DeviceInfo device = findDevice(deviceAppModel.getDeviceCode());
         if (device == null) {
@@ -54,7 +54,7 @@ public class DeviceCenter implements IDeviceCenter, InitializingBean {
      * @param deviceCode
      * @return
      */
-    public DeviceInfo findDevice(String deviceCode) {
+    public synchronized DeviceInfo findDevice(String deviceCode) {
         for (DeviceInfo device : deviceAppGroup) {
             if (device.getDeviceCode().equals(deviceCode)) {
                 return device;
@@ -69,7 +69,7 @@ public class DeviceCenter implements IDeviceCenter, InitializingBean {
      * @param deviceCode
      * @return
      */
-    public String getAlias(String deviceCode) {
+    public synchronized String getAlias(String deviceCode) {
         if (aliasGroup.containsKey(deviceCode)) {
             return aliasGroup.get(deviceCode);
         }
@@ -82,7 +82,7 @@ public class DeviceCenter implements IDeviceCenter, InitializingBean {
      * @param deviceAppModel
      */
     @Override
-    public void removeAppInfo(DeviceAppModel deviceAppModel) {
+    public synchronized void removeAppInfo(DeviceAppModel deviceAppModel) {
         DeviceInfo device = findDevice(deviceAppModel.getDeviceCode());
         if (device != null) {
             // 寻找app是否存在
@@ -112,7 +112,7 @@ public class DeviceCenter implements IDeviceCenter, InitializingBean {
      * @param alias      别名
      */
     @Override
-    public boolean setAlias(String deviceCode, String alias) {
+    public synchronized boolean setAlias(String deviceCode, String alias) {
         AtomicBoolean flag = new AtomicBoolean(false);
         if ("".equals(alias.trim())) {
             aliasGroup.remove(deviceCode);
@@ -133,7 +133,7 @@ public class DeviceCenter implements IDeviceCenter, InitializingBean {
      * 清除所有连接
      */
     @Override
-    public void clear() {
+    public synchronized void clear() {
         // 将所有连接关闭
         deviceAppGroup.forEach(d -> {
             d.getAppInfoList().forEach(i -> {
